@@ -15,10 +15,24 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// encodedRawAuth returns an encoded auth config for the given registry
+func encodedRawAuth(ref string, username string, password string) (string, error) {
+	auth := types.AuthConfig{
+		Username: username,
+		Password: password,
+	}
+	log.Debugf("Loaded auth credentials for user %s on registry %s", auth.Username, ref)
+	log.Tracef("Using auth password %s", auth.Password)
+	return EncodeAuth(auth)
+}
+
 // EncodedAuth returns an encoded auth config for the given registry
 // loaded from environment variables or docker config
 // as available in that order
-func EncodedAuth(ref string) (string, error) {
+func EncodedAuth(ref string, username string, password string) (string, error) {
+	if username != "" && password != "" {
+		return encodedRawAuth(ref, username, password)
+	}
 	auth, err := EncodedEnvAuth(ref)
 	if err != nil {
 		auth, err = EncodedConfigAuth(ref)
@@ -33,15 +47,9 @@ func EncodedEnvAuth(ref string) (string, error) {
 	username := os.Getenv("REPO_USER")
 	password := os.Getenv("REPO_PASS")
 	if username != "" && password != "" {
-		auth := types.AuthConfig{
-			Username: username,
-			Password: password,
-		}
-		log.Debugf("Loaded auth credentials for user %s on registry %s", auth.Username, ref)
-		log.Tracef("Using auth password %s", auth.Password)
-		return EncodeAuth(auth)
+		return encodedRawAuth(ref, username, password)
 	}
-	return "", errors.New("Registry auth environment variables (REPO_USER, REPO_PASS) not set")
+	return "", errors.New("registry auth environment variables (REPO_USER, REPO_PASS) not set")
 }
 
 // EncodedConfigAuth returns an encoded auth config for the given registry

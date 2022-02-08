@@ -56,6 +56,8 @@ type Container interface {
 	ToRestart() bool
 	IsWatchtower() bool
 	StopSignal() string
+	RegistryUsername() string
+	RegistryPassword() string
 	HasImageInfo() bool
 	ImageInfo() *types.ImageInspect
 	GetLifecyclePreCheckCommand() string

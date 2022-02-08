@@ -9,8 +9,12 @@ import (
 )
 
 // GetPullOptions creates a struct with all options needed for pulling images from a registry
-func GetPullOptions(imageName string) (types.ImagePullOptions, error) {
-	auth, err := EncodedAuth(imageName)
+func GetPullOptions(container watchtowerTypes.Container) (types.ImagePullOptions, error) {
+	imageName := container.ImageName()
+	registryUsername := container.RegistryUsername()
+	registryPassword := container.RegistryPassword()
+
+	auth, err := EncodedAuth(imageName, registryUsername, registryPassword)
 	log.Debugf("Got image name: %s", imageName)
 	if err != nil {
 		return types.ImagePullOptions{}, err

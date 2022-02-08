@@ -216,6 +216,16 @@ func (c Container) StopSignal() string {
 	return c.getLabelValueOrEmpty(signalLabel)
 }
 
+// RegistryUsername
+func (c Container) RegistryUsername() string {
+	return c.getLabelValueOrEmpty(registryUsernameLabel)
+}
+
+// RegistryPassword
+func (c Container) RegistryPassword() string {
+	return c.getLabelValueOrEmpty(registryPasswordLabel)
+}
+
 // Ideally, we'd just be able to take the ContainerConfig from the old container
 // and use it as the starting point for creating the new container; however,
 // the ContainerConfig that comes back from the Inspect call merges the default

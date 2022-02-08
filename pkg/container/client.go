@@ -304,7 +304,7 @@ func (client dockerClient) PullImage(ctx context.Context, container Container) e
 	}
 
 	log.WithFields(fields).Debugf("Trying to load authentication credentials.")
-	opts, err := registry.GetPullOptions(imageName)
+	opts, err := registry.GetPullOptions(container)
 	if err != nil {
 		log.Debugf("Error loading authentication credentials %s", err)
 		return err

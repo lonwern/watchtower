@@ -6,6 +6,8 @@ const (
 	enableLabel           = "com.centurylinklabs.watchtower.enable"
 	monitorOnlyLabel      = "com.centurylinklabs.watchtower.monitor-only"
 	dependsOnLabel        = "com.centurylinklabs.watchtower.depends-on"
+	registryUsernameLabel = "com.centurylinklabs.watchtower.registry-username"
+	registryPasswordLabel = "com.centurylinklabs.watchtower.registry-password"
 	zodiacLabel           = "com.centurylinklabs.zodiac.original-image"
 	scope                 = "com.centurylinklabs.watchtower.scope"
 	preCheckLabel         = "com.centurylinklabs.watchtower.lifecycle.pre-check"
