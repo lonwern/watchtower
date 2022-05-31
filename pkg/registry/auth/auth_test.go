@@ -110,7 +110,7 @@ var _ = Describe("the auth module", func() {
 		})
 		It("should not destroy three segment image names\"", func() {
 			Expect(auth.GetScopeFromImageName("piksel/containrrr/watchtower", "index.docker.io")).To(Equal("containrrr/watchtower"))
-			Expect(auth.GetScopeFromImageName("piksel/containrrr/watchtower", "ghcr.io")).To(Equal("piksel/containrrr/watchtower"))
+			Expect(auth.GetScopeFromImageName("ghcr.io/piksel/containrrr/watchtower", "ghcr.io")).To(Equal("piksel/containrrr/watchtower"))
 		})
 		It("should not add \"library/\" for one segment image names if they're not on dockerhub", func() {
 			Expect(auth.GetScopeFromImageName("ghcr.io/watchtower", "ghcr.io")).To(Equal("watchtower"))

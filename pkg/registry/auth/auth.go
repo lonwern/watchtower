@@ -158,7 +158,7 @@ func GetScopeFromImageName(img, svc string) string {
 		if strings.Contains(svc, "docker.io") {
 			return fmt.Sprintf("%s/%s", parts[1], strings.Join(parts[2:], "/"))
 		}
-		return strings.Join(parts, "/")
+		return strings.Join(parts[1:], "/")
 	}
 
 	if len(parts) == 2 {
